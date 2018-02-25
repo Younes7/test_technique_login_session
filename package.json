@@ -1,0 +1,15 @@
+{
+  "name": "test_technique_login_session",
+  "version": "1.0.0",
+  "description": "login session local avec passport.js mongoDB et handlebars",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Younes",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0"
+  }
+}
