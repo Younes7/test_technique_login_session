@@ -1,0 +1,13 @@
+{{#each posts}}
+  <div class="card card-body">
+    <h4>{{title}}</h4>
+    <p>{{content}}</p>
+    <a class="btn btn-dark btn-block" href="/posts/edit/{{id}}">Edit</a>
+    <form method="post" action="/posts/{{id}}?_method=DELETE">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" class="btn btn-danger btn-block" value="Supprimer">
+    </form>
+  </div>
+{{else}}
+  <p>Aucun Posts</p>
+{{/each}}  
