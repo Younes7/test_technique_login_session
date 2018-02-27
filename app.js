@@ -6,10 +6,13 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+<<<<<<< HEAD
 // Routes
 const posts = require('./routes/posts');
 const utilisateurs = require('./routes/utilisateurs');
 
+=======
+>>>>>>> 2d931e68c57763503d08e51ae049fffae506123b
 // Connection Mongoose
 mongoose.Promise = global.Promise;
 
@@ -47,6 +50,89 @@ app.get('/', (req, res) => {
         posts: posts
       });
   });
+<<<<<<< HEAD
+=======
+});
+
+// Route Posts
+app.get('/posts', (req, res) => {
+  Post.find({})
+    .sort({ date:'desc' })
+    .then(posts => {
+     res.render('posts', {
+      posts: posts
+     });
+  });
+});
+
+// Route Ajouter 
+app.get('/posts/add', (req, res) => {
+  res.render('posts/add');
+});
+
+// Route Edit 
+app.get('/posts/edit/:id', (req, res) => {
+  Post.findOne({
+    _id: req.params.id
+  })
+    .then(post => {
+      res.render('posts/edit', {
+        post: post
+      });
+    });
+});
+
+// Route Ajouter post
+app.post('/posts', (req, res) => {
+  let errors = [];
+  if(!req.body.title){
+    errors.push({ text: 'Ajoutez un titre' })
+  }
+  if (!req.body.content) {
+    errors.push({ text: 'Ajoutez le contenu' })
+  }
+  if(errors.length > 0){
+    res.render('posts/add', {
+      errors: errors,
+      title : req.body.title,
+      content : req.body.content
+    });
+  } else {
+    const newUtilisateur = {
+      title: req.body.title,
+      content : req.body.content
+    }
+    new Post(newUtilisateur)
+      .save()
+      .then(post => {
+        res.redirect('/posts')
+      })
+    }
+  });
+
+// Route Edit Post
+app.put('/posts/:id', (req,res) => {
+  Post.findOne({
+    _id: req.params.id
+  })
+  .then(post => {
+    post.title = req.body.title;
+    post.content = req.body.content;
+
+    post.save()
+      .then(post => {
+        res.redirect('/posts');
+      });
+  });
+});
+
+// Supprimer Post
+app.delete('/posts/:id', (req, res) => {
+  Post.remove({ _id: req.params.id })
+  .then(() => {
+    res.redirect('/posts');
+  });
+>>>>>>> 2d931e68c57763503d08e51ae049fffae506123b
 });
 
 app.use('/posts', posts);
